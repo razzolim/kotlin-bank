@@ -106,4 +106,26 @@ internal class BankControllerTest @Autowired constructor(val mockMvc: MockMvc, v
         }
     
     }
+
+    @Nested
+    @DisplayName("PATCH /api/banks")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class PatchExistingBank {
+        
+        @Test
+        fun `should update an existing bank`() {
+            val accountNo = "1234"
+            val updatedBank = Bank("1234", 1.0, 1)
+
+            val performPatch = mockMvc.patch("$resource/$accountNo") {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(updatedBank)
+            }
+
+            performPatch
+                .andDo { print() }
+                .andExpect { status { isOk() } }
+        }
+
+    }
 }
