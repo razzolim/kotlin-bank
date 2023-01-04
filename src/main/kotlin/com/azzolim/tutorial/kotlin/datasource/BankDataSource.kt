@@ -1,9 +1,10 @@
 package com.azzolim.tutorial.kotlin.datasource
 
-import com.azzolim.tutorial.kotlin.model.Bank
+import com.azzolim.tutorial.kotlin.model.*
 
 interface BankDataSource {
 
     fun retrieveBanks(): Collection<Bank>
+    fun retrieveBank(accountNo: String): Bank
 
 }
