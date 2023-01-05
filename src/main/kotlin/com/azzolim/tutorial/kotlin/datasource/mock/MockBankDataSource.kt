@@ -26,12 +26,20 @@ class MockBankDataSource  : BankDataSource {
     }
 
     override fun updateBank(bank: Bank): Bank {
-        val currentBank = banks.firstOrNull { it.accountNumber == bank.accountNumber } ?:
-            throw NoSuchElementException("Could not find bank with accountNo={${bank.accountNumber}}")
-
+        val currentBank = findBankOrThrowsException(bank.accountNumber)
         banks.remove(currentBank)
         banks.add(bank)
         return bank
+    }
+
+    override fun deleteBank(accountNo: String) {
+        val currentBank = findBankOrThrowsException(accountNo)
+        banks.remove(currentBank)
+    }
+
+    private fun findBankOrThrowsException(accountNo: String): Bank {
+        return banks.firstOrNull { it.accountNumber == accountNo } ?:
+        throw NoSuchElementException("Could not find bank with accountNo={${accountNo}}")
     }
 
 }
