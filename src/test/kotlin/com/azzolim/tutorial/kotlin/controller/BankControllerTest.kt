@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.*
 import org.springframework.boot.test.autoconfigure.web.servlet.*
 import org.springframework.boot.test.context.*
 import org.springframework.http.*
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.*
 
 @SpringBootTest
@@ -163,6 +164,7 @@ internal class BankControllerTest @Autowired constructor(val mockMvc: MockMvc, v
     inner class DeleteExistingBank {
         
         @Test
+        @DirtiesContext
         fun `should delete the bank with given account number`() {
             val accountNo = "1234"
 
