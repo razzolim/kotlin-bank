@@ -1,10 +1,10 @@
 package com.azzolim.tutorial.kotlin.datasource.mock
 
-import com.azzolim.tutorial.kotlin.datasource.*
-import com.azzolim.tutorial.kotlin.model.*
-import org.springframework.stereotype.*
+import com.azzolim.tutorial.kotlin.datasource.BankDataSource
+import com.azzolim.tutorial.kotlin.model.Bank
+import org.springframework.stereotype.Repository
 
-@Repository
+@Repository("mock")
 class MockBankDataSource  : BankDataSource {
 
     val banks = mutableListOf(
