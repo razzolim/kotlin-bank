@@ -5,7 +5,7 @@ import com.azzolim.tutorial.kotlin.model.Bank
 import org.springframework.stereotype.Repository
 
 @Repository("mock")
-class MockBankDataSource  : BankDataSource {
+class MockBankDataSource : BankDataSource {
 
     val banks = mutableListOf(
         Bank("1234", 3.14, 17),
@@ -14,11 +14,10 @@ class MockBankDataSource  : BankDataSource {
     )
 
     override fun retrieveBanks(): Collection<Bank> = banks
-    override fun retrieveBank(accountNo: String): Bank = banks.firstOrNull() { it.accountNumber == accountNo } ?:
-        throw NoSuchElementException("Could not find a bank with accountNumber={$accountNo}")
+    override fun retrieveBank(accountNo: String): Bank = findBankOrThrowsException(accountNo)
 
     override fun createBank(newBank: Bank): Bank {
-        if (banks.any() { it.accountNumber == newBank.accountNumber}) {
+        if (banks.any { it.accountNumber == newBank.accountNumber}) {
             throw IllegalArgumentException("Bank with accountNo={${newBank.accountNumber}} already exists")
         }
         banks.add(newBank)
